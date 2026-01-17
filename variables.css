@@ -1,0 +1,61 @@
+/*
+ * Variables CSS pour personnalisation facile
+ * Mettez à jour ces valeurs pour changer le thème global
+ */
+
+:root {
+  /* Couleurs principales */
+  --primary: #6c63ff;        /* Bleu primaire */
+  --secondary: #00d4ff;      /* Cyan accentué */
+  --dark-bg: #0b0f1a;        /* Noir très foncé */
+  --dark-bg-light: #1a1f3a;  /* Noir léger */
+  --text-light: #eaeaf0;     /* Texte léger */
+  --text-muted: #b0b5cc;     /* Texte muted */
+  --text-dim: #888;          /* Texte très dim */
+  --border-color: #333;      /* Bordures */
+
+  /* Dégradés */
+  --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+  --gradient-bg: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 50%, var(--dark-bg) 100%);
+
+  /* Ombres */
+  --shadow-sm: 0 5px 15px rgba(108, 99, 255, 0.1);
+  --shadow-md: 0 15px 40px rgba(108, 99, 255, 0.3);
+  --shadow-lg: 0 25px 60px rgba(108, 99, 255, 0.25);
+
+  /* Animations */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.6s ease;
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 15px;
+  --radius-full: 50px;
+}
+
+/* 
+ * GUIDE DE PERSONNALISATION
+ * 
+ * 1. CHANGER LES COULEURS :
+ *    --primary: votre-bleu;
+ *    --secondary: votre-cyan;
+ * 
+ * 2. AJUSTER LA VITESSE DES ANIMATIONS :
+ *    --transition-normal: 0.5s ease;
+ * 
+ * 3. MODIFIER LES DÉGRADÉS :
+ *    --gradient-primary: linear-gradient(...);
+ * 
+ * 4. AJOUTER PLUS D'ESPACEMENT :
+ *    --spacing-xxl: 4rem;
+ */
