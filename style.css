@@ -816,7 +816,6 @@ body::before {
 .project-icon {
   font-size: 2.2rem;
   margin-bottom: 0.6rem;
-  animation: float 3s ease-in-out infinite;
   display: inline-block;
   filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
 }
@@ -1167,6 +1166,18 @@ input:focus, textarea:focus {
   box-shadow: 0 15px 40px rgba(108, 99, 255, 0.4);
   transform: translateY(-5px) scale(1.05);
   border-color: transparent;
+}
+
+.contact-email,
+.contact-phone {
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact-email:hover,
+.contact-phone:hover {
+  color: #00d4ff;
 }
 
 #form-status {

@@ -83,35 +83,7 @@ projects.forEach((project, index) => {
   project.style.transition = "opacity 0.3s ease, transform 0.3s ease";
 });
 
-// Validation formulaire avec animation
-const form = document.getElementById("contact-form");
-const formStatus = document.getElementById("form-status");
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-  
-  if (name && email && message) {
-    formStatus.textContent = "✓ Message prêt à être envoyé!";
-    formStatus.style.color = "#00d4ff";
-    formStatus.style.animation = "popIn 0.4s ease";
-    
-    // Réinitialiser le formulaire
-    form.reset();
-    
-    // Réinitialiser le message après 3 secondes
-    setTimeout(() => {
-      formStatus.textContent = "";
-    }, 3000);
-  } else {
-    formStatus.textContent = "✗ Veuillez remplir tous les champs";
-    formStatus.style.color = "#ff6b6b";
-    formStatus.style.animation = "shake 0.4s ease";
-  }
-});
+// Ancien code supprimé - remplacé par EmailJS ci-dessous
 
 // Animation au scroll
 const observerOptions = {
@@ -180,3 +152,66 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+// Gestion du formulaire de contact avec EmailJS
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      formStatus.textContent = '❌ Veuillez remplir tous les champs';
+      formStatus.style.color = '#ff6b6b';
+      return;
+    }
+
+    formStatus.textContent = '📧 Envoi en cours...';
+    formStatus.style.color = '#00d4ff';
+
+    try {
+      // Envoyer via EmailJS
+      const response = await emailjs.send(
+        'service_portfolio',
+        'portfolio_contact',
+        {
+         
+          from_name: name,
+          from_email: email,
+          message: message,
+          reply_to: email
+        }
+      );
+
+      if (response.status === 200) {
+        formStatus.textContent = '✅ Message envoyé avec succès!';
+        formStatus.style.color = '#00d4ff';
+        contactForm.reset();
+        setTimeout(() => {
+          formStatus.textContent = '';
+        }, 3000);
+      } else {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+    } catch (error) {
+      console.error('Erreur EmailJS:', error);
+      
+      // Fallback: mailto automatique
+      const mailtoLink = `mailto:mamoudou.wone@etu.ec-lyon.fr?subject=Contact Portfolio - ${encodeURIComponent(name)}&body=${encodeURIComponent('Nom: ' + name + '\n\nEmail: ' + email + '\n\nMessage: ' + message)}`;
+      
+      formStatus.innerHTML = `
+        ⚠️ EmailJS non configuré.<br><br>
+        <strong>Alternatives:</strong><br>
+        1. <a href="${mailtoLink}" style="color: #00d4ff; text-decoration: underline; font-weight: bold;">Envoyer via email</a><br><br>
+        2. Contactez directement:<br>
+        📧 <a href="mailto:mamoudou.wone@etu.ec-lyon.fr" style="color: #00d4ff;">mamoudou.wone@etu.ec-lyon.fr</a><br>
+        📱 <a href="tel:+33602768123" style="color: #00d4ff;">+33 6 02 76 81 23</a>
+      `;
+      formStatus.style.color = '#ffa500';
+    }
+  });
+}
